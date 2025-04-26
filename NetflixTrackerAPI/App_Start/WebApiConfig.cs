@@ -10,6 +10,8 @@ namespace NetflixTrackerAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -19,6 +21,12 @@ namespace NetflixTrackerAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Enable CORS globally
+            config.EnableCors();
+
+            // Register the CorsHandler to add the CORS headers
+            config.MessageHandlers.Add(new CorsHandler());
         }
     }
 }
