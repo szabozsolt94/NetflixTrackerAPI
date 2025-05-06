@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace NetflixTrackerAPI
 {
@@ -9,24 +7,23 @@ namespace NetflixTrackerAPI
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            // Remove XML formatter (keep JSON only)
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
 
+            // Enable CORS globally (allow all origins, headers, methods)
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            // Default API route (Uncommented this line to restore functionality)
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            // Enable CORS globally
-            config.EnableCors();
-
-            // Register the CorsHandler to add the CORS headers
-            config.MessageHandlers.Add(new CorsHandler());
         }
     }
 }
+
