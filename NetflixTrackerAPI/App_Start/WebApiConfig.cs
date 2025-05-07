@@ -7,17 +7,15 @@ namespace NetflixTrackerAPI
     {
         public static void Register(HttpConfiguration config)
         {
-            // Remove XML formatter (keep JSON only)
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
 
-            // Enable CORS globally (allow all origins, headers, methods)
+            // Enable CORS globally
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
-            // Default API route (Uncommented this line to restore functionality)
+            // Default API route
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

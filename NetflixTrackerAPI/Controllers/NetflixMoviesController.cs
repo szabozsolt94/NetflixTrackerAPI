@@ -7,7 +7,7 @@ namespace NetflixTrackerAPI.Controllers
 {
     public class NetflixMoviesController : ApiController
     {
-        // Return every movie in the database
+        // API endpoint to return every movie in the database
         [HttpGet]
         [Route("api/NetflixMovies")]
         public IEnumerable<Movy> GetAllMovies()
@@ -18,7 +18,7 @@ namespace NetflixTrackerAPI.Controllers
             }
         }
 
-        // Return only a specific movie the user wants by MovieID
+        // API endpoint to return only a specific movie by MovieID
         [HttpGet]
         [Route("api/NetflixMovies/{id}")]
         public IHttpActionResult GetMovieById(int id)
